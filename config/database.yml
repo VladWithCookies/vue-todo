@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: vue-todo_development
+
+test:
+  <<: *default
+  database: vue-todo_test
+
+production:
+  <<: *default
+  database: vue-todo_production
+  username: vue-todo
+  password: <%= ENV['VUE-TODO_DATABASE_PASSWORD'] %>
