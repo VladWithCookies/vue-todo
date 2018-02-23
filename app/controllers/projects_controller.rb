@@ -2,8 +2,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: %i(update destroy)
 
   def index
-    projects = Project.all
-    render json: projects
+    render json: Project.all
   end
 
   def create
