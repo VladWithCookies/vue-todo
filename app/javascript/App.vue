@@ -2,8 +2,11 @@
   <div>
     <div class='ui two column centered grid'>
       <div class='column'>
-        <project />
-        <project />
+        <project
+          v-for='project in projects'
+          :key='project.id'
+          :project='project'
+        />
       </div>
     </div>
     <div class='add-btn fluid'>
@@ -16,12 +19,22 @@
 </template>
 
 <script>
+import normalize from 'json-api-normalize';
+import { getProjects } from 'api';
 import Project from 'components/Project'
 
 export default {
+  data: () => ({
+    projects: [],
+  }),
+  created () {
+    getProjects().then((resp) => {
+      this.projects = normalize(resp.data).get(['title'])
+    });
+  },
   components: {
     Project,
-  }
+  },
 }
 </script>
 

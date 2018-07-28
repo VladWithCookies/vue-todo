@@ -3,7 +3,7 @@
     <div class='content'>
       <div class='header pb-1'>
         <i class='ui icon calendar' />
-        Project title
+        {{project.title}}
         <div class="right floated">
           <i class="ui icon pencil" />
           <i class="ui icon trash" />
@@ -24,6 +24,7 @@ import Task from 'components/Task'
 import TaskForm from 'components/TaskForm'
 
 export default {
+  props: ['project'],
   components: {
     Task,
     TaskForm,
