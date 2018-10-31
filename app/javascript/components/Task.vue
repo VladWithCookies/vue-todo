@@ -1,11 +1,11 @@
 <template>
   <div class='item'>
     <div class='ui fitted checkbox'>
-      <input type='checkbox'>
+      <input type='checkbox' :checked="task.done">
       <label></label>
     </div>
     <div class='middle aligned content'>
-      Task title
+      {{task.content}}
     </div>
     <div class='right floated'>
       <i class='ui icon pencil' />
@@ -13,6 +13,12 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: ['task'],
+}
+</script>
 
 <style>
   .content {

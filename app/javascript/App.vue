@@ -29,7 +29,13 @@ export default {
   }),
   created () {
     getProjects().then((resp) => {
-      this.projects = normalize(resp.data).get(['title'])
+      this.projects = normalize(resp.data).get([
+        'title',
+        'tasks.content',
+        'tasks.done',
+        'tasks.priority',
+        'tasks.deadline',
+      ]);
     });
   },
   components: {

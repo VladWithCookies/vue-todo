@@ -11,9 +11,7 @@
       </div>
       <task-form />
       <div class='ui divided items'>
-        <task />
-        <task />
-        <task />
+        <task v-for="task in project.tasks" :task="task" />
       </div>
     </div>
   </div>
