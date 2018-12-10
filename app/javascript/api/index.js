@@ -9,3 +9,4 @@ const httpClient = axios.create({
 });
 
 export const getProjects = () => httpClient.get('/projects');
+export const createProject = () => httpClient.post('/projects');

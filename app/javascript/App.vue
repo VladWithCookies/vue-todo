@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class='add-btn fluid'>
-      <button class='ui blue  button'>
+      <button @click="createProject" class='ui blue  button'>
         <i class='ui icon plus' />
         Add TODO list
       </button>
@@ -20,13 +20,22 @@
 
 <script>
 import normalize from 'json-api-normalize';
-import { getProjects } from 'api';
+import { getProjects, createProject } from 'api';
 import Project from 'components/Project'
 
 export default {
   data: () => ({
     projects: [],
   }),
+  methods: {
+    createProject () {
+      createProject().then(resp => {
+        const { data: { data: { id, attributes: { title } } } } = resp;
+
+        this.projects.push({ id, title })
+      })
+    }
+  },
   created () {
     getProjects().then((resp) => {
       this.projects = normalize(resp.data).get([
