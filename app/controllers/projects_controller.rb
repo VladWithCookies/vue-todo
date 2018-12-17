@@ -8,4 +8,8 @@ class ProjectsController < ApplicationController
     project = Project.create(title: 'New Project')
     render json: ProjectSerializer.new(project)
   end
+
+  def destroy
+    Project.destroy(params[:id])
+  end
 end
