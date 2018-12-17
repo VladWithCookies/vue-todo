@@ -5,8 +5,8 @@
         <i class='ui icon calendar' />
         {{project.title}}
         <div class="right floated">
-          <i class="ui icon pencil" />
-          <i class="ui icon trash" />
+          <i class="ui link icon pencil" />
+          <i @click="handleDeleteProject(project.id)" class="ui link icon trash" />
         </div>
       </div>
       <task-form />
@@ -22,7 +22,7 @@ import Task from 'components/Task'
 import TaskForm from 'components/TaskForm'
 
 export default {
-  props: ['project'],
+  props: ['project', 'handleDeleteProject'],
   components: {
     Task,
     TaskForm,
