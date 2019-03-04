@@ -18,7 +18,15 @@
           </template>
         </div>
       </div>
-      <task-form />
+      <form class='ui form'>
+        <div class='field'>
+          <div class='ui fluid right labeled action input'>
+            <label class="ui label">+</label>
+            <input v-model.trim="newTaskTitle" type='text' placeholder='Start typing here to create a task...'>
+            <button @click="handleCreateTask" type="button" class='ui green button'>Add Task</button>
+          </div>
+        </div>
+      </form>
       <div class='ui divided items'>
         <task v-for="task in project.tasks" :key="task.id" :task="task" />
       </div>
@@ -27,13 +35,15 @@
 </template>
 
 <script>
-import { updateProject } from 'api';
+import normalize from 'json-api-normalize';
+
+import { updateProject, createTask } from 'api';
 import Task from 'components/Task'
-import TaskForm from 'components/TaskForm'
 
 export default {
   data: () => ({
     editMode: false,
+    newTaskTitle: '',
     newProjectTitle: ''
   }),
   created () {
@@ -41,8 +51,7 @@ export default {
   },
   props: ['project', 'handleDeleteProject'],
   components: {
-    Task,
-    TaskForm,
+    Task
   },
   methods: {
     handleToggleEdit() {
@@ -52,6 +61,17 @@ export default {
       updateProject(this.project.id, this.newProjectTitle);
       this.editMode = false;
       this.project.title = this.newProjectTitle;
+    },
+    handleCreateTask() {
+      if (this.newTaskTitle === '') return;
+
+      createTask(this.project.id, this.newTaskTitle).then(resp => {
+        const newTask = normalize(resp.data).get(['id', 'content']);
+        const tasks = this.project.tasks || [];
+
+        this.project.tasks = [...tasks, newTask];
+        this.newTaskTitle = '';
+      });
     }
   }
 }
